@@ -146,6 +146,9 @@ make clean
 
 ---
 
+## Output 
+![image alt](https://github.com/Neerajmaggvi/rp3-bootloader/blob/e3fb27227b890d9e8f0cafa47fcd4564cbe870d5/Output%20screenshot.png)
+
 ## Author
 
 Neeraj

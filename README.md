@@ -33,25 +33,25 @@ Initializes the PL011 UART peripheral and displays the boot message with current
 
 ## Project Structure
 
-\`\`\`
+```text
 rp3-bootloader/
 ├── Makefile          # Build system
-├── linker.ld         # Linker script — places code at 0x80000
+├── linker.ld         # Linker script
 ├── config.txt        # RPi3 firmware configuration
 └── src/
-    ├── boot.S        # AArch64 assembly entry point
-    ├── uart.c        # PL011 UART driver
-    ├── uart.h        # UART function declarations
-    └── main.c        # Boot message + Exception Level display
-\`\`\`
+    ├── boot.S
+    ├── uart.c
+    ├── uart.h
+    └── main.c
+```
 
 ---
 
 ## How it works
 
-### Boot flow
+## Boot Flow
 
-\`\`\`
+```text
 Power ON
    ↓
 GPU firmware loads kernel8.img to RAM at 0x80000
@@ -62,12 +62,14 @@ boot.S detects EL2 → drops to EL1 via ERET
    ↓
 Stack pointer set, BSS section zeroed
    ↓
-main() called → UART initialized
+main() called
+   ↓
+UART initialized
    ↓
 Boot message + EL1 printed over UART
    ↓
 CPU halts (WFE loop)
-\`\`\`
+```
 
 ### Exception Levels (ARM AArch64)
 

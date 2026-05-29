@@ -1,17 +1,23 @@
 # RP3 Custom Bootloader
+
 A bare-metal custom bootloader for Raspberry Pi 3 written in AArch64 assembly and C.
 Initializes the PL011 UART peripheral and displays the boot message with current Exception Level on the serial console.
 
+---
 
 ## What it does
+
 - Runs directly on hardware with no OS underneath (bare metal)
 - Detects and drops from Exception Level 2 (EL2) to EL1
 - Initializes PL011 UART at 115200 baud via MMIO
 - Prints boot message and current Exception Level over UART
 - Parks CPU cores 1, 2, 3 — only core 0 executes
 
+---
 
 ## Output
+
+\`\`\`
 ========================================
   RP3 Custom Bootloader — v1.0
   AArch64 Bare Metal
@@ -21,12 +27,13 @@ Initializes the PL011 UART peripheral and displays the boot message with current
 ========================================
   Halting — extend main() to load OS
 ========================================
+\`\`\`
 
-
-
-
+---
 
 ## Project Structure
+
+\`\`\`
 rp3-bootloader/
 ├── Makefile          # Build system
 ├── linker.ld         # Linker script — places code at 0x80000
@@ -36,9 +43,15 @@ rp3-bootloader/
     ├── uart.c        # PL011 UART driver
     ├── uart.h        # UART function declarations
     └── main.c        # Boot message + Exception Level display
+\`\`\`
 
+---
+
+## How it works
 
 ### Boot flow
+
+\`\`\`
 Power ON
    ↓
 GPU firmware loads kernel8.img to RAM at 0x80000
@@ -54,8 +67,10 @@ main() called → UART initialized
 Boot message + EL1 printed over UART
    ↓
 CPU halts (WFE loop)
+\`\`\`
 
 ### Exception Levels (ARM AArch64)
+
 | Level | Purpose |
 |-------|---------|
 | EL3 | Secure monitor |
@@ -64,6 +79,7 @@ CPU halts (WFE loop)
 | EL0 | User applications |
 
 ### UART Configuration
+
 | Setting | Value |
 |---------|-------|
 | Peripheral | PL011 (UART0) |
@@ -75,12 +91,19 @@ CPU halts (WFE loop)
 | Stop bits | 1 |
 | Parity | None |
 
+---
 
 ## Prerequisites
-sudo apt install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu make qemu-system-aarch64 -y
 
+\`\`\`bash
+sudo apt install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu make qemu-system-aarch64 -y
+\`\`\`
+
+---
 
 ## Build and Run
+
+\`\`\`bash
 # Build
 make
 
@@ -89,35 +112,42 @@ make run
 
 # Clean
 make clean
+\`\`\`
 
+---
 
 ## Running on Real Hardware
+
 | Item | Specification |
 |------|--------------|
 | Board | Raspberry Pi 3 Model B / B+ |
-| SD card | MicroSD 16GB, FAT32 formatted |
+| SD card | MicroSD 8GB+, FAT32 formatted |
 | UART adapter | USB-to-UART 3.3V (CP2102 or CH340) |
 | Power supply | 5V 2.5A Micro-USB |
 
 ### UART Wiring
+
 | RPi3 Pin | Signal | UART Adapter |
 |----------|--------|--------------|
 | Pin 6 | GND | GND |
 | Pin 8 (GPIO14) | TX | RX |
 | Pin 10 (GPIO15) | RX | TX |
 
+> Use a 3.3V adapter only — 5V will damage GPIO pins!
+
+---
 
 ## Development Environment
+
 - OS: Ubuntu 22.04 LTS (VMware)
 - Editor: VS Code
 - Emulator: QEMU 9.0.2
 - Compiler: aarch64-linux-gnu-gcc 11.4.0
 - Target: Raspberry Pi 3 (AArch64 / ARMv8)
 
-### QEMU Output
-
-
-
+---
 
 ## Author
+
 Neeraj
+README

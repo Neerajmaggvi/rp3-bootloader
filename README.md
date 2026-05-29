@@ -95,28 +95,25 @@ CPU halts (WFE loop)
 
 ---
 
-## Prerequisites
-
-\`\`\`bash
-sudo apt install gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu make qemu-system-aarch64 -y
-\`\`\`
-
----
-
 ## Build and Run
 
-\`\`\`bash
-# Build
+### Build
+
+```bash
 make
+```
 
-# Run on QEMU
+### Run on QEMU
+
+```bash
 make run
+```
 
-# Clean
+### Clean
+
+```bash
 make clean
-\`\`\`
-
----
+```
 
 ## Running on Real Hardware
 
